@@ -14,31 +14,31 @@ struct ContactoPrevista: View {
     let equinas_redondeadas = CGSize(width: 55, height: 55)
     
     var body: some View {
-        HStack(alignment: VerticalAlignment.center) {
+        HStack(alignment: VerticalAlignment.center, spacing: 10) {
             Spacer()
             
             VStack{
-                Image("Image 1")
+                Image("Image")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
+                    .padding(7)
                     .frame(height: 75, alignment: .center)
                     .clipShape(RoundedRectangle(cornerSize: equinas_redondeadas))
             }
-            .background(Color.blue)
             
             Spacer()
             
-            VStack(alignment: HorizontalAlignment.leading){
+            VStack(alignment: HorizontalAlignment.leading, spacing: 10){
                 Text(contacto_a_mostrar.nombre)
                 Text(contacto_a_mostrar.telefono)
             }
-            .background(Color.gray)
-            .frame(width: 150)
+            .frame(maxWidth: .infinity, alignment: .leading)
             
             Spacer()
         }
-        .frame(width: 250)
-        .background(Color.pink)
+        .frame(maxWidth: .infinity)
+        .background(Color.teal)
+        .clipShape(RoundedRectangle(cornerSize:equinas_redondeadas))
         .onTapGesture {
             al_pulsar()
         }

@@ -10,7 +10,7 @@ import SwiftUI
 let contactos = [
     ContactoAgenda(nombre: "Juan", telefono: "656 123 4567"),
     ContactoAgenda(nombre: "Pablo", telefono: "656 123 4568"),
-    ContactoAgenda(nombre: "Astrid", telefono: "656 123 4569"),
+    ContactoAgenda(nombre: "Astrid", telefono: "915 123 4569"),
     ContactoAgenda(nombre: "Aron", telefono: "656 123 4570"),
     ContactoAgenda(nombre: "Juan", telefono: "656 123 4567"),
     ContactoAgenda(nombre: "Pablo", telefono: "656 123 4568"),
@@ -34,10 +34,37 @@ struct PantallaAgenda: View {
                     ContactoPrevista(contacto_a_mostrar: contacto, al_pulsar: {print("Te envia saludos \(contacto.nombre) desde la página agenda")})
                 }
             }
-            .background(Color.teal)
-            .frame(width: ancho_de_pantalla, alignment: Alignment.center)
+            .frame(alignment: Alignment.center)
+            .padding(10)
         }
-        .background(Color.mint)
+        
+        HStack{
+            ZStack{
+                Circle()
+                    .frame(width: 80)
+                    .foregroundColor(Color.teal)
+                Image(systemName: "plus")
+                    .tint(Color.white)
+            }
+            .padding(15)
+            .onTapGesture {
+                print("Lanzar un intent para iniciar la llamada")
+            }
+            
+            Spacer()
+            
+            ZStack{
+                Circle()
+                    .frame(width: 80)
+                    .foregroundColor(Color.teal)
+                Image(systemName: "shuffle")
+                    .tint(Color.white)
+            }
+            .padding(15)
+            .onTapGesture {
+                print("Falta Implementar esta parte")
+            }
+        }
     }
 }
 
