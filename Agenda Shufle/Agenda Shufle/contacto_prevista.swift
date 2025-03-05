@@ -37,7 +37,8 @@ struct ContactoPrevista: View {
             Spacer()
         }
         .frame(maxWidth: .infinity)
-        .background(Color.teal)
+        .background(
+            LinearGradient(colors: [Color.white, Color.teal], startPoint: .leading, endPoint: .trailing))
         .clipShape(RoundedRectangle(cornerSize:equinas_redondeadas))
         .onTapGesture {
             al_pulsar()
