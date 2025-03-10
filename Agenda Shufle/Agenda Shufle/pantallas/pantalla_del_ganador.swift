@@ -17,6 +17,7 @@ struct pantalla_del_ganador: View {
             Circle().foregroundColor(Color.teal)
                 .frame(width: 250)
             icono(tamaño: 150, ruta_icono: "person.fill", padding: 10)
+                .foregroundColor(.white)
         }
         Text(contacto_a_molestar.nombre)
         Text(contacto_a_molestar.telefono)

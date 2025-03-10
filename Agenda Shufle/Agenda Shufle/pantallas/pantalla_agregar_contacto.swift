@@ -19,36 +19,75 @@ struct PantallaAgregarContacto: View {
     }
     
     var body: some View {
-        Text("Colocar la etiqueta de nombre")
+        Text("Nombre del contacto")
+            .font(.title2)
+            .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
         ZStack{
-            Rectangle()
-                .frame(maxWidth: .infinity, maxHeight: 75)
-                .foregroundColor(Color.teal)
-            TextField("Placeholder", text: $nombre)
-                .padding(10)
-        }
+            TextField("Nombre", text: $nombre)
+                .frame(height: 35)
+                .padding(15)
+            
+                .overlay(
+                    RoundedRectangle(cornerRadius: 55)
+                        .stroke(LinearGradient(colors: [Color.blue, Color.teal, Color.blue], startPoint: .leading, endPoint: .trailing))
+                )
+            
+        }.padding(10)
         
-        Text("Colocar el campo del número telefónico")
-        TextField("Placeholder números", text: $numero_telefonico)
-            .frame(height: 35)
-            .padding(10)
+        Text("Número telefónico del contacto")
+            .font(.title2)
+            .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+        ZStack{
+            TextField("Número de celular", text: $numero_telefonico)
+                .frame(height: 35)
+                .padding(15)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 55)
+                        .stroke(LinearGradient(colors: [Color.blue, Color.teal, Color.blue], startPoint: .leading, endPoint: .trailing))
+                )
+        }.padding(10)
+        
         
         HStack{
+            Spacer()
             //Icono para agregar contacto
-            icono(tamaño: 65, ruta_icono: "person.crop.circle.badge.plus", padding: 10)
-                .onTapGesture {
-                    boton_agregar(nombre, numero_telefonico)
-                }
+            ZStack{
+                Circle()
+                    .stroke(
+                        LinearGradient(colors: [Color.white, Color.teal], startPoint: .top, endPoint: .bottom), lineWidth: 8
+                    )
+                    .fill(
+                        LinearGradient(colors: [Color.teal, Color.blue], startPoint: .top, endPoint: .bottom)
+                    )
+                    .frame(width: 90)
+                icono(tamaño: 50, ruta_icono: "person.crop.circle.badge.plus", padding: 10)
+                    .onTapGesture {
+                        boton_agregar(nombre, numero_telefonico)
+                    }
+                    .foregroundColor(Color.white)
+            }.padding(20)
+            
             Spacer()
             //Icono para regres
-            icono(tamaño: 65, ruta_icono: "return", padding: 10)
-                .background(nombre == "" ? Color.clear:
-                                Color.red)
-                .onTapGesture {
-                    boton_salir()
-                }
+            ZStack{
+                Circle()
+                    .stroke(
+                        LinearGradient(colors: [Color.white, Color.teal], startPoint: .top, endPoint: .bottom), lineWidth: 8
+                    )
+                    .fill(
+                        LinearGradient(colors: [Color.teal, Color.blue], startPoint: .top, endPoint: .bottom)
+                    )
+                    .frame(width: 90)
+                icono(tamaño: 40, ruta_icono: "return", padding: 10)
+                    .onTapGesture {
+                        boton_salir()
+                    }
+                    .foregroundColor(Color.white)
+            }
+            
+            
+            Spacer()
         }
-        .background(Color.cyan)
     }
 }
 

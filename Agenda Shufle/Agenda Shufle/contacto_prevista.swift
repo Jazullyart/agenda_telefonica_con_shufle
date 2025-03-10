@@ -30,6 +30,8 @@ struct ContactoPrevista: View {
             
             VStack(alignment: HorizontalAlignment.leading, spacing: 10){
                 Text(contacto_a_mostrar.nombre)
+                    .font(.title2)
+                    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                 Text(contacto_a_mostrar.telefono)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -37,9 +39,12 @@ struct ContactoPrevista: View {
             Spacer()
         }
         .frame(maxWidth: .infinity)
-        .background(
-            LinearGradient(colors: [Color.white, Color.teal], startPoint: .leading, endPoint: .trailing))
+        .background(Color.white)
         .clipShape(RoundedRectangle(cornerSize:equinas_redondeadas))
+        .overlay(
+            RoundedRectangle(cornerRadius: 55)
+                .stroke(LinearGradient(colors: [Color.blue, Color.teal, Color.blue], startPoint: .leading, endPoint: .trailing))
+        )
         .onTapGesture {
             al_pulsar()
         }

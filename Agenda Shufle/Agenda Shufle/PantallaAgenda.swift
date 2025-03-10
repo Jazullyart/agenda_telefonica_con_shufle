@@ -7,34 +7,30 @@
 
 import SwiftUI
 
-let contactos = [
-    ContactoAgenda(nombre: "Juan", telefono: "656 123 4567"),
-    ContactoAgenda(nombre: "Pablo", telefono: "656 123 4568"),
-    ContactoAgenda(nombre: "Astrid", telefono: "915 123 4569"),
-    ContactoAgenda(nombre: "Aron", telefono: "656 123 4570"),
-    ContactoAgenda(nombre: "Juan", telefono: "656 123 4567"),
-    ContactoAgenda(nombre: "Pablo", telefono: "656 123 4568"),
-    ContactoAgenda(nombre: "Astrid", telefono: "656 123 4569"),
-    ContactoAgenda(nombre: "Aron", telefono: "656 123 4570"),
-    ContactoAgenda(nombre: "Juan", telefono: "656 123 4567"),
-    ContactoAgenda(nombre: "Pablo", telefono: "656 123 4568"),
-    ContactoAgenda(nombre: "Astrid", telefono: "656 123 4569"),
-    ContactoAgenda(nombre: "Aron", telefono: "656 123 4570")
-]
+enum PantallasDisponibles: String, Identifiable{
+    case pantalla_agregar, pantalla_aleatorio
+    
+    var id: String{ rawValue }
+}
 
 struct PantallaAgenda: View {
     var ancho_de_pantalla = UIScreen.main.bounds.width
     var largo_de_pantalla = UIScreen.main.bounds.height
     
     @State var mostrar_pantalla_agregar_contacto: Bool = false
+    
     @State var contactos_actuales: [ContactoAgenda] = [
-        ContactoAgenda(nombre: "Astrid", telefono: "String"),
-        ContactoAgenda(nombre: "Astrid", telefono: "String"),
-        ContactoAgenda(nombre: "Astrid", telefono: "String"),
-        ContactoAgenda(nombre: "Astrid", telefono: "String"),
-        ContactoAgenda(nombre: "Astrid", telefono: "String"),
-        ContactoAgenda(nombre: "Astrid", telefono: "String")
+        ContactoAgenda(nombre: "Astrid", telefono: "915 123 4567"),
+        ContactoAgenda(nombre: "Aron", telefono: "656 123 4567"),
+        ContactoAgenda(nombre: "Alo", telefono: "915 123 6456"),
+        ContactoAgenda(nombre: "Ale", telefono: "656 986 4567"),
+        ContactoAgenda(nombre: "Eve", telefono: "915 123 4567"),
+        ContactoAgenda(nombre: "Khami", telefono: "656 123 4567"),
+        ContactoAgenda(nombre: "Angel", telefono: "915 123 6456"),
+        ContactoAgenda(nombre: "Wen", telefono: "656 986 4567")
     ]
+    
+    @State var pantalla_a_mostrar: PantallasDisponibles?
     
     var body: some View {
         ScrollView{
@@ -48,7 +44,7 @@ struct PantallaAgenda: View {
             .frame(alignment: Alignment.center)
             .padding(10)
         }.background(
-            LinearGradient(colors: [Color.white, Color.blue], startPoint: .top, endPoint: .bottom)
+            LinearGradient(colors: [Color.white, Color.white, Color.white, .azulFondo], startPoint: .top, endPoint: .bottom)
         )
         
         HStack(alignment: VerticalAlignment.center, spacing: 25){
@@ -68,7 +64,7 @@ struct PantallaAgenda: View {
             .padding(15)
             .onTapGesture {
                 print("Lanzar un intent para iniciar la llamada")
-                mostrar_pantalla_agregar_contacto.toggle()
+                pantalla_a_mostrar = PantallasDisponibles.pantalla_agregar
             }
             
             Spacer()
@@ -88,23 +84,28 @@ struct PantallaAgenda: View {
             .padding(15)
             .onTapGesture {
                 print("Falta Implementar esta parte")
+                pantalla_a_mostrar = PantallasDisponibles.pantalla_aleatorio
             }
             
             Spacer()
         }
-            .sheet(isPresented: $mostrar_pantalla_agregar_contacto){
-                PantallaAgregarContacto(boton_salir: {
-                    mostrar_pantalla_agregar_contacto.toggle()
-                },
-                boton_agregar: {nombre, numero in
-                    let contacto_nuevo = ContactoAgenda(nombre: nombre, telefono: numero)
-                    contactos_actuales.append(contacto_nuevo)
-                    mostrar_pantalla_agregar_contacto.toggle()
-                })
+            .sheet(item: $pantalla_a_mostrar){ pantalla in
+                switch(pantalla){
+                case .pantalla_agregar:
+                    PantallaAgregarContacto(
+                        boton_salir: {
+                            pantalla_a_mostrar = PantallasDisponibles.pantalla_aleatorio   
+                    },
+                    boton_agregar: {nombre, numero in
+                        let contacto_nuevo = ContactoAgenda(nombre: nombre, telefono: numero)
+                        contactos_actuales.append(contacto_nuevo)
+                        pantalla_a_mostrar = nil
+                    }
+                )
+                case.pantalla_aleatorio:
+                    Text("Adios mundo")
             }
-            //.sheet(item: <#T##Binding<Identifiable?>#>, content: <#T##(Identifiable) -> View#>)
-        
-        
+        }
     }
 }
 
