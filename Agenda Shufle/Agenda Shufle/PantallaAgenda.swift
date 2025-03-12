@@ -33,20 +33,27 @@ struct PantallaAgenda: View {
     @State var pantalla_a_mostrar: PantallasDisponibles?
     
     var body: some View {
-        ScrollView{
-            VStack(spacing: 10) {
-                ForEach(contactos_actuales){ contacto in
-                    //Text("\(contacto.nombre)")
-                    ContactoPrevista(contacto_a_mostrar: contacto, al_pulsar: {print("Te envia saludos \(contacto.nombre) desde la página agenda")})
+        NavigationStack{
+            ScrollView{
+                VStack(spacing: 10) {
+                    ForEach(contactos_actuales){ contacto in
+                        NavigationLink{
+                            PantallaDelGanador(contacto_a_molestar: contacto, regresar: true)
+                        } label : {
+                            ContactoPrevista(contacto_a_mostrar: contacto)
+                                .tint(Color.black)
+                        }
+                    }
                 }
-            }
-            
-            .frame(alignment: Alignment.center)
-            .padding(10)
-        }.background(
-            LinearGradient(colors: [Color.white, Color.white, Color.white, .azulFondo], startPoint: .top, endPoint: .bottom)
-        )
+                
+                .frame(alignment: Alignment.center)
+                .padding(10)
+            }.background(
+                LinearGradient(colors: [Color.white, Color.white, Color.white, .azulFondo], startPoint: .top, endPoint: .bottom)
+            )
+        }
         
+    
         HStack(alignment: VerticalAlignment.center, spacing: 25){
             Spacer()
             ZStack{
@@ -94,7 +101,7 @@ struct PantallaAgenda: View {
                 case .pantalla_agregar:
                     PantallaAgregarContacto(
                         boton_salir: {
-                            pantalla_a_mostrar = PantallasDisponibles.pantalla_aleatorio   
+                            pantalla_a_mostrar = nil
                     },
                     boton_agregar: {nombre, numero in
                         let contacto_nuevo = ContactoAgenda(nombre: nombre, telefono: numero)
@@ -103,7 +110,12 @@ struct PantallaAgenda: View {
                     }
                 )
                 case.pantalla_aleatorio:
-                    Text("Adios mundo")
+                    let contacto_random = Int.random(in: 0...contactos_actuales.count)
+                            PantallaDelGanador(
+                                contacto_a_molestar: contactos_actuales[contacto_random], regresar: true, boton_llamar: {
+                                    Link("\(contactos_actuales[contacto_random].telefono)", destination: URL(string: "tel:\(contactos_actuales[contacto_random].telefono)")!)
+                                }
+                            )
             }
         }
     }

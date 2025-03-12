@@ -45,9 +45,6 @@ struct ContactoPrevista: View {
             RoundedRectangle(cornerRadius: 55)
                 .stroke(LinearGradient(colors: [Color.blue, Color.teal, Color.blue], startPoint: .leading, endPoint: .trailing))
         )
-        .onTapGesture {
-            al_pulsar()
-        }
     }
 }
 
