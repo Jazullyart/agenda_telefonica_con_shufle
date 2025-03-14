@@ -20,14 +20,14 @@ struct PantallaAgenda: View {
     @State var mostrar_pantalla_agregar_contacto: Bool = false
     
     @State var contactos_actuales: [ContactoAgenda] = [
-        ContactoAgenda(nombre: "Astrid", telefono: "915 123 4567"),
-        ContactoAgenda(nombre: "Aron", telefono: "656 123 4567"),
-        ContactoAgenda(nombre: "Alo", telefono: "915 123 6456"),
-        ContactoAgenda(nombre: "Ale", telefono: "656 986 4567"),
-        ContactoAgenda(nombre: "Eve", telefono: "915 123 4567"),
-        ContactoAgenda(nombre: "Khami", telefono: "656 123 4567"),
-        ContactoAgenda(nombre: "Angel", telefono: "915 123 6456"),
-        ContactoAgenda(nombre: "Wen", telefono: "656 986 4567")
+        ContactoAgenda(nombre: "Astrid", telefono: "9151234567"),
+        ContactoAgenda(nombre: "Aron", telefono: "6561234567"),
+        ContactoAgenda(nombre: "Alo", telefono: "9151236456"),
+        ContactoAgenda(nombre: "Ale", telefono: "6569864567"),
+        ContactoAgenda(nombre: "Eve", telefono: "9151234567"),
+        ContactoAgenda(nombre: "Khami", telefono: "6561234567"),
+        ContactoAgenda(nombre: "Angel", telefono: "9151236456"),
+        ContactoAgenda(nombre: "Wen", telefono: "6569864567")
     ]
     
     @State var pantalla_a_mostrar: PantallasDisponibles?
@@ -113,7 +113,8 @@ struct PantallaAgenda: View {
                     let contacto_random = Int.random(in: 0...contactos_actuales.count)
                             PantallaDelGanador(
                                 contacto_a_molestar: contactos_actuales[contacto_random], regresar: true, boton_llamar: {
-                                    Link("\(contactos_actuales[contacto_random].telefono)", destination: URL(string: "tel:\(contactos_actuales[contacto_random].telefono)")!)
+                                    Link("\(contactos_actuales[contacto_random].telefono)", destination: URL(string: "tel://\(contactos_actuales[contacto_random].telefono)")!)
+                                    print(contactos_actuales[contacto_random].telefono)
                                 }
                             )
             }

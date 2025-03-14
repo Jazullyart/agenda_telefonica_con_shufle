@@ -19,7 +19,7 @@ struct PantallaDelGanador: View {
         print("Parece que te has equivocado")
     }
     
-    var boton_llamar: () -> Void = {
+    var boton_llamar: ( ) -> Void = {
         print("Parece que te has equivocado")
     }
     
